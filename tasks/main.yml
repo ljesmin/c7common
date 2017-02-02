@@ -1,0 +1,36 @@
+- name: install utilities
+  yum: name='{{item}}' state=present
+  with_items:
+    - lsof
+    - strace
+    - sysstat
+    - curl
+    - wget
+    - openssh-clients
+    - gcc
+    - make
+    - man
+    - rsync
+    - firewalld
+- name: Modify prompt
+  template: src=prompt.sh.j2 dest=/etc/profile.d/prompt.sh
+  when: shortname is defined
+- name: Set hostname
+  command: "/usr/bin/hostnamectl set-hostname {{servername}}"
+  when: (ansible_distribution_major_version == "7" and servername is defined)
+- name: Set timezone
+  command: /usr/bin/timedatectl set-timezone Europe/Tallinn
+  when: ansible_distribution_major_version == "7"
+- name: configure postfix
+  template: src=main.cf.j2 dest=/etc/postfix/main.cf owner="root" group="root" mode=0644
+  when: myhostname is defined
+  notify:
+  - reload postfix
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+  when: start_firewalld
+- name: Set root mail
+  lineinfile: "dest=/etc/aliases state=present regexp='^root:' line='root: {{rootmail}}' owner=root group=root mode=0644"
+  when: rootmail is defined
+  notify:
+  - run newaliases
