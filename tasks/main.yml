@@ -19,8 +19,8 @@
   command: "/usr/bin/hostnamectl set-hostname {{servername}}"
   when: (ansible_distribution_major_version == "7" and servername is defined)
 - name: Set timezone
-  command: /usr/bin/timedatectl set-timezone Europe/Tallinn
-  when: ansible_distribution_major_version == "7"
+  command: /usr/bin/timedatectl set-timezone {{ common_timezone }}
+  when: ansible_distribution_major_version == "7" and common_timezone is defined
 - name: configure postfix
   template: src=main.cf.j2 dest=/etc/postfix/main.cf owner="root" group="root" mode=0644
   when: myhostname is defined
