@@ -29,7 +29,7 @@
 - name: Start firewalld
   service: name=firewalld state=started enabled=yes
   when: start_firewalld is defined and start_firewalld
-- name: Start firewalld
+- name: Stop firewalld
   service: name=firewalld state=stopped enabled=no
   when: start_firewalld is defined and not start_firewalld
 - name: Set root mail
