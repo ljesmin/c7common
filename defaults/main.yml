@@ -3,3 +3,16 @@ configure_journald: false
 journald_config:
   Storage: persistent
   MaxRetentionSec: 1month
+common_apps:
+- lsof
+- strace
+- sysstat
+- curl
+- wget
+- openssh-clients
+- gcc
+- make
+- man
+- rsync
+- firewalld
+- git

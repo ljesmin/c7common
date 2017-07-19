@@ -1,17 +1,6 @@
 - name: install utilities
   yum: name='{{item}}' state=present
-  with_items:
-    - lsof
-    - strace
-    - sysstat
-    - curl
-    - wget
-    - openssh-clients
-    - gcc
-    - make
-    - man
-    - rsync
-    - firewalld
+  with_items: "{{ common apps }}"
 - name: Modify prompt
   template: src=prompt.sh.j2 dest=/etc/profile.d/prompt.sh
   when: shortname is defined
