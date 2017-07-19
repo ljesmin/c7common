@@ -4,3 +4,5 @@
   service: >
     name=postfix
     state=reloaded
+- name: reload journald
+  service: name=systemd-journald state=restarted
