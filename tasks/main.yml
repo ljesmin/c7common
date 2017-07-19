@@ -37,3 +37,12 @@
   when: rootmail is defined
   notify:
   - run newaliases
+- name: configure journald
+  template:
+    dest: "/etc/systemd/journald.conf"
+    src: "journald.conf.j2"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  when: configure_journald
+

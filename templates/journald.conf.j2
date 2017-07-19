@@ -1,0 +1,5 @@
+
+[Journal]
+{% for key, value in journald_config.iteritems() %}
+{{ key }}={{ value }}
+{% endfor %}
