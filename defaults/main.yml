@@ -1,5 +1,5 @@
 start_firewalld: true
 configure_journald: false
 journald_config:
-- { Storage: persistent }
-- { MaxRetentionSec: 1month }
+  Storage: persistent
+  MaxRetentionSec: 1month
