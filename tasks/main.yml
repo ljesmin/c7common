@@ -1,6 +1,7 @@
 - name: install utilities
-  yum: name='{{item}}' state=present
-  with_items: "{{ common_apps }}"
+  yum:
+    name: "{{ common_apps  }}"
+    state: present
 - name: Modify prompt
   template: src=prompt.sh.j2 dest=/etc/profile.d/prompt.sh
   when: shortname is defined
